@@ -1,0 +1,178 @@
+@import 'lenis/dist/lenis.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Lenis smooth scrolling resets */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
+/* Self-hosted fonts (matching askoro.ai) */
+@font-face {
+  font-family: 'Apfel Grotezk';
+  src: url('/fonts/ApfelGrotezk-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Bebas Neue';
+  src: url('/fonts/bebas-neue-latin.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --font-oro-sans: 'Apfel Grotezk', system-ui, sans-serif;
+  --font-oro-display: 'Apfel Grotezk', system-ui, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  /* `clip` keeps horizontal overflow clipped WITHOUT turning <body> into a scroll
+     container - `hidden` would silently break `position: sticky` pins in some
+     browsers (the pinned 400vh canvas section depends on sticky). */
+  overflow-x: clip;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+@supports not (overflow-x: clip) {
+  body {
+    overflow-x: hidden;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(212, 162, 111, 0.25);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(212, 162, 111, 0.5);
+}
+
+/* Hide scrollbar but keep scroll functionality */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Match dashboard display headings to the homepage font style (Apfel Grotezk regular weight) */
+.font-display {
+  font-family: 'Apfel Grotezk', system-ui, sans-serif;
+  font-weight: 400;
+}
+
+/* Glassmorphism & Tonal utilities */
+.card-shadow {
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.06);
+}
+
+.gold-bg {
+  background-color: #d4a26f;
+}
+
+.gold-text {
+  color: #d4a26f;
+}
+
+.gold-gradient-text {
+  background: linear-gradient(135deg, #f5eee3 0%, #d4a26f 50%, #9a6e3d 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.dark .gold-gradient-text {
+  background: linear-gradient(135deg, #f5eee3 0%, #d4a26f 50%, #9a6e3d 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Tactile Grain Overlay */
+.bg-grain {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 0);
+  background-size: 24px 24px;
+}
+/* ---------- Skeleton screens ---------- */
+.oro-skeleton {
+  position: relative;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+}
+
+.oro-skeleton::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.09),
+    transparent
+    transparent 0%,
+    rgba(212, 162, 111, 0.15) 50%,
+    transparent 100%
+  );
+  animation: oro-shimmer 1.6s infinite;
+  animation: oro-shimmer 1.8s infinite cubic-bezier(0.4, 0, 0.6, 1);
+}
+
+@keyframes oro-shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .oro-skeleton::after {
+    animation: none;
+    background: rgba(255, 255, 255, 0.04);
+    background: rgba(212, 162, 111, 0.06);
+  }
+}
