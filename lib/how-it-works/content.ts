@@ -1,15 +1,15 @@
 /**
  * How It Works — content model & sequence configuration.
  *
- * Frames are served from /public/sequence2
- * (ezgif-frame-001.jpg … ezgif-frame-300.jpg, 3840×2160, ≈48 MB total).
+ * Frames are served from /public/sequence3
+ * (ezgif-frame-001.jpg … ezgif-frame-130.jpg, 3840×2160).
  *
  * Everything the cinematic pinned section and the mobile fallback render lives
  * here so the two representations can never drift out of sync.
  */
 
-export const SEQUENCE_ROOT = '/sequence2/';
-export const FRAME_COUNT = 300;
+export const SEQUENCE_ROOT = '/sequence3/';
+export const FRAME_COUNT = 130;
 export const FRAME_WIDTH = 3840;
 export const FRAME_HEIGHT = 2160;
 

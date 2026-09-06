@@ -125,7 +125,7 @@ export default function SequenceCanvas({ progress, enabled }: SequenceCanvasProp
       if (failedRef.current === 3) {
         console.warn(
           `[SequenceCanvas] ${failedRef.current} frames failed to decode - ` +
-            'check that /sequence2/ezgif-frame-*.jpg is reachable.'
+            'check that /sequence3/ezgif-frame-*.jpg is reachable.'
         );
       }
     } finally {

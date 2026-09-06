@@ -13,8 +13,8 @@ import {
  * Full-page, frame-by-frame scroll background for the sections BELOW the hero.
  *
  * The hero keeps its own video background; this layer sits behind the rest of
- * the page. The 300 JPGs in /sequence2 are scrubbed on a fixed, full-viewport
- * <canvas> as the user scrolls: frame 1 at the top, frame 300 at the bottom.
+ * the page. The 130 JPGs in /sequence3 are scrubbed on a fixed, full-viewport
+ * <canvas> as the user scrolls: frame 1 at the top, frame 130 at the bottom.
  *
  * Robustness:
  *  1. A static <img> of frame 001 sits behind the canvas as an instant base so
@@ -147,7 +147,7 @@ export default function PageSequenceBackground() {
     ctx.drawImage(bitmap, dx, dy, dw, dh);
   }, []);
 
-  /* Drive the sequence from overall page scroll (0..1 -> frame 1..300). */
+  /* Drive the sequence from overall page scroll (0..1 -> frame 1..FRAME_COUNT). */
   useEffect(() => {
     // Kick off the opening window so the first paint is near-instant.
     for (let i = 0; i < 4; i += 1) void requestDecode(i);

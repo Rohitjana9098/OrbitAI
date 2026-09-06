@@ -23,7 +23,7 @@ OrbitAI is an AI-native, non-custodial DeFi companion for exploring onchain acti
 - **Wallet connection flow** - simulated social (Google, X, Apple) and Web3 (MetaMask, Phantom, Coinbase Wallet, WalletConnect) signing with wallet address persistence
 - **Activity & transaction history** - every simulated action leaves a persisted record
 - **Shield Engine** - security experience with simulated route checks and dry-run previews before confirmation
-- **Cinematic product site** - interactive 3-step "How it works" driven by a 300-frame scroll sequence, plus use cases, FAQ, blog, and marquee sections
+- **Cinematic product site** - interactive 3-step "How it works" driven by a 130-frame scroll sequence, plus use cases, FAQ, blog, and marquee sections
 - **Responsive dashboard** - 8 views (overview, ask, swap, stake, lend, bridge, activity, security) with animated transitions and mobile navigation
 - **Optional Supabase persistence** with a local SQLite fallback for development
 
@@ -130,7 +130,7 @@ app/
   api/                 API route handlers (users, wallets, transactions, activity)
   components/          UI components
     home/              Landing page: hero, how-it-works, chat demo, features, use cases, shield engine, FAQ, blog, footer
-    home/how-it-works/ 300-frame scroll sequence step rendering
+    home/how-it-works/ 130-frame scroll sequence step rendering
     dashboard/         Dashboard single-page app
     landing/           Alternate landing components
   dashboard/           Dashboard route
@@ -149,7 +149,7 @@ public/
   images/              Brand assets (wallet logos)
   video/               Hero and product videos (mp4/webm, 480p-1080p)
   sequence1/           210 landing animation frames
-  sequence2/           300 product animation frames
+  sequence3/           130 product animation frames
 supabase/
   schema.sql           Supabase database schema + prototype RLS policies
 design-tokens.md       Design system tokens (colors, type, spacing, motion)
@@ -160,7 +160,7 @@ design-tokens.md       Design system tokens (colors, type, spacing, motion)
 - The current wallet modal uses a **simulated** wallet flow for the prototype.
 - Transaction confirmation records a transaction and activity entry but does **not** broadcast a blockchain transaction.
 - The dashboard includes representative portfolio values and quotes for demonstrating the product experience.
-- The `How It Works` section scrubs a 300-frame sequence (`/sequence2`) based on scroll progress; on mobile it falls back to a step-by-step version.
+- The `How It Works` section scrubs a 130-frame sequence (`/sequence3`) based on scroll progress; on mobile it falls back to a step-by-step version.
 - Before production, add real wallet adapters, server-side transaction simulation, chain integrations, authentication, authorization, validation, and secure Supabase Row Level Security policies.
 
 ## License
