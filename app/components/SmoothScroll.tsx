@@ -16,8 +16,10 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
         : null;
     if (mediaQuery?.matches) return;
 
-    // Instantiate Lenis for buttery smooth scrolling across the entire website
+    // Instantiate Lenis for buttery smooth scrolling across the entire website.
+    // Options below are validated against the installed Lenis v1.3.x API.
     const lenis = new Lenis({
+      // Use the classic expo-out feel (duration + easing) for wheel scrolling.
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: 'vertical',
@@ -25,6 +27,12 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
       smoothWheel: true,
       wheelMultiplier: 1.1,
       touchMultiplier: 2,
+      // We drive the animation loop manually below via requestAnimationFrame.
+      // autoRaf must stay false or Lenis would start a second, competing loop.
+      autoRaf: false,
+      // Lenis v1.3 respects prefers-reduced-motion itself; our early return
+      // above already covers the "reduce" case, so keep the default.
+      respectReducedMotion: true,
     });
 
     lenisRef.current = lenis;

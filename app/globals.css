@@ -47,9 +47,11 @@ html.lenis, html.lenis body {
   --font-oro-display: 'Apfel Grotezk', system-ui, sans-serif;
 }
 
-html {
-  scroll-behavior: smooth;
-}
+/* NOTE: Do NOT set `scroll-behavior: smooth` on html here. Smooth scrolling for
+   the whole site is driven by Lenis (SmoothScroll.tsx). A CSS scroll-behavior
+   on the root conflicts with Lenis' programmatic window.scrollTo() calls and
+   causes jumpy / rubber-band scrolling — the classic Lenis-css conflict. Lenis
+   sets `scroll-behavior: auto` itself via the `.lenis.lenis-smooth` rule. */
 
 body {
   font-feature-settings: "cv02", "cv03", "cv04", "cv11";

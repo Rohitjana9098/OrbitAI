@@ -85,6 +85,7 @@ export default function SequenceCanvas({ progress, enabled }: SequenceCanvasProp
   const cacheRef = useRef<Map<number, ImageBitmap>>(new Map());
   const pendingRef = useRef<Set<number>>(new Set());
   const wantedIndexRef = useRef(-1);
+  const lastDrawnIndexRef = useRef(-1);
   const lastProgressRef = useRef(0);
   const readyRef = useRef(false);
   const failedRef = useRef(0);
@@ -207,12 +208,14 @@ export default function SequenceCanvas({ progress, enabled }: SequenceCanvasProp
       }
     }
 
-    /* Skip redundant paints when the frame on screen is unchanged. */
-    if (Math.abs(p - lastProgressRef.current) < 0.0002) return;
-    lastProgressRef.current = p;
-
     const bitmap = cacheRef.current.get(index);
-    if (bitmap) drawFrame(index, bitmap);
+    if (bitmap && (Math.abs(p - lastProgressRef.current) >= 0.0002 || lastDrawnIndexRef.current !== index)) {
+      lastProgressRef.current = p;
+      lastDrawnIndexRef.current = index;
+      drawFrame(index, bitmap);
+    } else if (!bitmap) {
+      lastDrawnIndexRef.current = -1;
+    }
   });
 
   return (

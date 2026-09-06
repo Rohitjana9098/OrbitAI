@@ -154,6 +154,7 @@ export default function PageSequenceBackground() {
 
     let rafId = 0;
     let last = -1;
+    let lastDrawnIndex = -1;
 
     const tick = () => {
       if (typeof window === 'undefined' || typeof document === 'undefined') {
@@ -164,7 +165,10 @@ export default function PageSequenceBackground() {
       // Respect prefers-reduced-motion: keep the static first frame on screen.
       if (prefersReducedRef.current) {
         const bitmap = cacheRef.current.get(0);
-        if (bitmap) drawFrame(bitmap);
+        if (bitmap && lastDrawnIndex !== 0) {
+          drawFrame(bitmap);
+          lastDrawnIndex = 0;
+        }
         return;
       }
 
@@ -184,8 +188,16 @@ export default function PageSequenceBackground() {
           }
         }
 
-        const bitmap = cacheRef.current.get(index);
-        if (bitmap) drawFrame(bitmap);
+      }
+
+      // Repaint as soon as a requested frame finishes decoding.
+      const index = frameIndexForProgress(p);
+      const bitmap = cacheRef.current.get(index);
+      if (bitmap && lastDrawnIndex !== index) {
+        drawFrame(bitmap);
+        lastDrawnIndex = index;
+      } else if (!bitmap) {
+        lastDrawnIndex = -1;
       }
 
       rafId = requestAnimationFrame(tick);
